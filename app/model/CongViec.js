@@ -50,6 +50,7 @@ const CongViecSchema = new Schema({
     },
     yeuCauTuyenDung: {
         type: String,
+        required: true,
     },
     created_at: {
         type: Date,
@@ -61,17 +62,25 @@ const CongViecSchema = new Schema({
     },
     yeuCauHoSo: {
         type: String,
+        required: true,
     },
     // Cách nộp hồ sơ
     emailNopHoSo: {
         type: String,
+        required: true,
     },
     hotline: {
         type: String,
     },
     diaChiNopTrucTiep: {
         type: String,
+        required: true,
     },
+    // Đóng / Mở bài đăng
+    isShow : {
+        type: Boolean,
+        default: true,
+    }
 })
 
 CongViecSchema.method("toJSON", function () {

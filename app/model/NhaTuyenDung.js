@@ -50,6 +50,10 @@ const NhaTuyenDungSchema = new Schema({
     anhCongTy: {
         type: String
     },
+    roles: {
+        type: Number,
+        default: 0,
+    },
     created_at: {
         type: Date,
         default: Date.now
