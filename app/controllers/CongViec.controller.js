@@ -1,5 +1,5 @@
 const CongViec = require('../model/CongViec')
-const { BadRequestError } = require('../api-error')
+const BadRequestError = require('../api-error')
 const handlePromise = require('../helpers/promise.helper')
 const mongoose = require('mongoose')
 
@@ -86,7 +86,7 @@ const capNhatCongViec = async (req, res, next) => {
     }
 
     if (!document) {
-        return next(new NotFoundError(404,
+        return next(new BadRequestError(404,
             'Không tìm thấy công việc!'))
     }
 
