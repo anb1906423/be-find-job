@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const NhaTuyenDungSchema = new Schema({
     logoCty: {
-        type: Buffer,
+        type: String,
     },
     tenCty: {
         type: String,

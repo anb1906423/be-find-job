@@ -7,7 +7,7 @@ const UngVienSchema = new Schema({
         required: false,
     },
     avatar: {
-        type: Buffer,
+        type: String,
     },
     sinhNhat: {
         type: Date,
