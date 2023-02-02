@@ -33,6 +33,8 @@ app.use('/ung-vien', require('./app/routes/UngVien'))
 app.use('/nha-tuyen-dung', require('./app/routes/NhaTuyenDung'))
 app.use('/cong-viec', require('./app/routes/CongViec'))
 
+app.use('/muc-luong', require('./app/routes/options/MucLuong'))
+
 app.get('/', (req, res) => {
     res.json({
         message: "Welcome!"

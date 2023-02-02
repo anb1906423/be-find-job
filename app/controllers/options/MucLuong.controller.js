@@ -42,8 +42,18 @@ const XoaMucLuong = async (req, res) => {
     res.status(200).json({ message: 'Xóa mức lương thành công' });
 }
 
+const getAllMucLuongs = async (req, res) => {
+    try {
+        const mucLuongs = await MucLuong.find({});
+        res.status(200).send(mucLuongs);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
+
 module.exports = {
     ThemMucLuong,
     SuaMucLuong,
-    XoaMucLuong, 
+    XoaMucLuong,
+    getAllMucLuongs
 }
