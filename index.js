@@ -37,6 +37,7 @@ app.use('/muc-luong', require('./app/routes/options/MucLuong'))
 app.use('/bang-cap', require('./app/routes/options/BangCap'))
 app.use('/dia-diem-lam-viec', require('./app/routes/options/DiaDiemLamViec'))
 app.use('/kinh-nghiem', require('./app/routes/options/KinhNghiem'))
+app.use('/linh-vuc-kinh-doanh', require('./app/routes/options/LinhVucKinhDoanh'))
 
 app.get('/', (req, res) => {
     res.json({
