@@ -54,6 +54,7 @@ const getAllBangCaps = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
 module.exports = {
     ThemBangCap,
     SuaBangCap,
