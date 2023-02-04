@@ -42,6 +42,7 @@ app.use('/loai-hinh-doanh-nghiep', require('./app/routes/options/LoaiHinhDoanhNg
 app.use('/loai-hop-dong', require('./app/routes/options/LoaiHopDong'))
 app.use('/nganh-nghe', require('./app/routes/options/NganhNghe'))
 app.use('/qui-mo', require('./app/routes/options/QuiMo'))
+app.use('/cap-bac', require('./app/routes/options/CapBac'))
 
 app.get('/', (req, res) => {
     res.json({
