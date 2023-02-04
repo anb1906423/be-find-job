@@ -2,7 +2,7 @@ const NhaTuyenDung = require('../model/NhaTuyenDung')
 const bcrypt = require('bcrypt')
 
 const HamXuLyDangKyNhaTuyenDung = async (req, res) => {
-    const { tenCty, email, matKhau, soDienThoai, diaChi, maSoThue } = req.body
+    const { logoCty, tenCty, email, matKhau, soDienThoai, diaChi, maSoThue } = req.body
     if ( !tenCty || !email || !matKhau || !soDienThoai || !diaChi || !maSoThue ) return res.status(400).json({ 'message': 'Tên công ty, email, số điện thoại, địa chỉ, mã số thuế và password không được để trống!' })
 
     if (req.body?.matKhau.length < 8) {
@@ -29,6 +29,7 @@ const HamXuLyDangKyNhaTuyenDung = async (req, res) => {
             "soDienThoai": soDienThoai,
             "diaChi": diaChi,
             "maSoThue": maSoThue,
+            "logoCty": logoCty,
         })
 
         console.log(result);
