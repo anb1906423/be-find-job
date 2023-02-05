@@ -1,7 +1,7 @@
 const BangCap = require('../../model/options/BangCap')
 
 const ThemBangCap = async (req, res) => {
-    const { ten } = req.body
+    const { ten, donViDaoTao, xepLoai } = req.body
     if (!ten) return res.status(400).json({
         message: 'Bằng cấp không được để trống'
     })
@@ -12,7 +12,7 @@ const ThemBangCap = async (req, res) => {
 
     if (foundBangCap) return res.status(400).json({ message: 'Bằng cấp đã tồn tại!' })
 
-    const bangCap = new BangCap({ ten })
+    const bangCap = new BangCap({ ten, donViDaoTao, xepLoai })
     await bangCap.save()
     res.status(201).json({ message: 'Thêm bằng cấp thành công', data: bangCap });
     return bangCap
@@ -21,7 +21,7 @@ const ThemBangCap = async (req, res) => {
 // Updating an existing BangCap
 const SuaBangCap = async (req, res) => {
     const { id } = req.params;
-    const { ten } = req.body;
+    const { ten, donViDaoTao, xepLoai } = req.body;
 
     if (!ten) return res.status(400).json({
         message: 'Bằng cấp không được để trống'
@@ -30,7 +30,7 @@ const SuaBangCap = async (req, res) => {
     const foundBangCap = await BangCap.findOne({ ten: ten }).exec();
 
     if (foundBangCap && foundBangCap._id != id) return res.status(400).json({ "message": "Bằng cấp đã tồn tại" });
-    const bangCap = await BangCap.findByIdAndUpdate(id, { ten }, { new: true });
+    const bangCap = await BangCap.findByIdAndUpdate(id, { ten, donViDaoTao, xepLoai }, { new: true });
     if (!bangCap) return res.status(404).json({ message: 'Không tìm thấy bằng cấp' }); // Salary not found
 
     res.status(200).json({ message: 'Chỉnh sửa bằng cấp thành công', data: bangCap });

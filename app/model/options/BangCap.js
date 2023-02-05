@@ -6,6 +6,12 @@ const BangCapSchema = new Schema({
         type: String,
         required: true
     },
+    donViDaoTao: {
+        type: String,
+    },
+    xepLoai: {
+        type: String,
+    }
 })
 
 BangCapSchema.method("toJSON", function () {

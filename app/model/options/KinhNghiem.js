@@ -6,6 +6,9 @@ const KinhNghiemSchema = new Schema({
         type: String,
         required: true
     },
+    moTa: {
+        type: String,
+    }
 })
 
 KinhNghiemSchema.method("toJSON", function () {

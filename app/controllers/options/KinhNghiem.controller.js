@@ -1,18 +1,18 @@
 const KinhNghiem = require('../../model/options/KinhNghiem')
 
 const ThemKinhNghiem = async (req, res) => {
-    const { ten } = req.body
+    const { ten, moTa } = req.body
     if (!ten) return res.status(400).json({
         message: 'Kinh nghiệm làm việc không được để trống'
     })
 
     const foundKinhNghiem = await KinhNghiem.findOne({
-        ten: ten
+        ten: ten,
     }).exec()
 
     if (foundKinhNghiem) return res.status(400).json({ message: 'Kinh nghiệm làm việc đã tồn tại!' })
 
-    const kinhNghiemLamviec = new KinhNghiem({ ten })
+    const kinhNghiemLamviec = new KinhNghiem({ ten, moTa })
     await kinhNghiemLamviec.save()
     res.status(201).json({ message: 'Thêm kinh nghiệm làm việc thành công', data: kinhNghiemLamviec });
     return kinhNghiemLamviec
@@ -20,7 +20,7 @@ const ThemKinhNghiem = async (req, res) => {
 
 const SuaKinhNghiem = async (req, res) => {
     const { id } = req.params;
-    const { ten } = req.body;
+    const { ten, moTa } = req.body;
 
     if (!ten) return res.status(400).json({
         message: 'Kinh nghiệm làm việc không được để trống'
@@ -28,8 +28,8 @@ const SuaKinhNghiem = async (req, res) => {
 
     const foundKinhNghiem = await KinhNghiem.findOne({ ten: ten }).exec();
 
-    if (foundKinhNghiem) return res.status(400).json({ "message": "Bằng cấp đã tồn tại" });
-    const kinhNghiem = await KinhNghiem.findByIdAndUpdate(id, { ten }, { new: true });
+    if (foundKinhNghiem) return res.status(400).json({ "message": "Kinh nghiệm làm việc đã tồn tại" });
+    const kinhNghiem = await KinhNghiem.findByIdAndUpdate(id, { ten, moTa }, { new: true });
     if (!kinhNghiem) return res.status(404).json({ message: 'Không tìm thấy kinh nghiệm làm việc' }); // Salary not found
 
     res.status(200).json({ message: 'Chỉnh sửa kinh nghiệm làm việc thành công', data: kinhNghiem });
