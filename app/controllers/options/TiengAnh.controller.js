@@ -1,9 +1,12 @@
 const TiengAnh = require('../../model/options/TiengAnh')
 
 const ThemTiengAnh = async (req, res) => {
-    const { xepLoai } = req.body
+    const { xepLoai, idUngVien } = req.body
     if (!xepLoai) return res.status(400).json({
         message: 'Trình độ tiếng Anh không được để trống'
+    })
+    if (!idUngVien) return res.status(400).json({
+        message: 'idUngVien không được để trống'
     })
 
     const foundTiengAnh = await TiengAnh.findOne({
@@ -12,7 +15,7 @@ const ThemTiengAnh = async (req, res) => {
 
     if (foundTiengAnh) return res.status(400).json({ message: 'Trình độ tiếng Anh đã tồn tại!' })
 
-    const tiengAnh = new TiengAnh({ xepLoai })
+    const tiengAnh = new TiengAnh({ xepLoai, idUngVien })
     await tiengAnh.save()
     res.status(201).json({ message: 'Thêm trình độ tiếng Anh thành công', data: tiengAnh });
     return tiengAnh
@@ -20,29 +23,32 @@ const ThemTiengAnh = async (req, res) => {
 
 const SuaTiengAnh = async (req, res) => {
     const { id } = req.params;
-    const { xepLoai } = req.body;
+    const { xepLoai, idUngVien } = req.body;
 
     if (!xepLoai) return res.status(400).json({
         message: 'Trình độ tiếng Anh không được để trống'
     }); // Name is required
+    if (!idUngVien) return res.status(400).json({
+        message: 'idUngVien không được để trống'
+    })
 
     const foundTiengAnh = await TiengAnh.findOne({ xepLoai: xepLoai }).exec();
 
     if (foundTiengAnh) return res.status(400).json({ "message": "Trình độ tiếng Anh đã tồn tại" });
-    const tiengAnh = await TiengAnh.findByIdAndUpdate(id, { xepLoai }, { new: true });
+    const tiengAnh = await TiengAnh.findByIdAndUpdate(id, { xepLoai, idUngVien }, { new: true });
     if (!tiengAnh) return res.status(404).json({ message: 'Không tìm thấy trình độ tiếng Anh' }); // Salary not found
 
     res.status(200).json({ message: 'Chỉnh sửa trình độ tiếng Anh thành công', data: tiengAnh });
 }
 
-const XoaTiengAnh = async (req, res) => {
-    const { id } = req.params;
+// const XoaTiengAnh = async (req, res) => {
+//     const { id } = req.params;
 
-    const tiengAnh = await TiengAnh.findByIdAndRemove(id);
-    if (!tiengAnh) return res.status(404).json({ message: 'Không tìm thấy trình độ tiếng Anh' }); // Salary not found
+//     const tiengAnh = await TiengAnh.findByIdAndRemove(id);
+//     if (!tiengAnh) return res.status(404).json({ message: 'Không tìm thấy trình độ tiếng Anh' }); // Salary not found
 
-    res.status(200).json({ message: 'Xóa trình độ tiếng Anh thành công' });
-}
+//     res.status(200).json({ message: 'Xóa trình độ tiếng Anh thành công' });
+// }
 
 const getAllTiengAnh = async (req, res) => {
     try {
@@ -56,6 +62,6 @@ const getAllTiengAnh = async (req, res) => {
 module.exports = {
     ThemTiengAnh,
     SuaTiengAnh,
-    XoaTiengAnh,
+    // XoaTiengAnh,
     getAllTiengAnh,
 }

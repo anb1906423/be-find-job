@@ -1,4 +1,5 @@
 const NhaTuyenDung = require('../model/NhaTuyenDung')
+const UngVien = require('../model/UngVien')
 const bcrypt = require('bcrypt')
 
 const HamXuLyDangKyNhaTuyenDung = async (req, res) => {
@@ -10,7 +11,8 @@ const HamXuLyDangKyNhaTuyenDung = async (req, res) => {
     }
 
     const foundEmail = await NhaTuyenDung.findOne({ email: email }).exec();
-    if (foundEmail) {
+    const foundEmailUngVien = await UngVien.findOne({ email: email }).exec();
+    if (foundEmail || foundEmailUngVien) {
         return res.send({ message: 'Địa chỉ email đã được sử dụng!', status: 400 })
     }
 

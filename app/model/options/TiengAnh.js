@@ -5,6 +5,9 @@ const TiengAnhSchema = new Schema({
     xepLoai: {
         type: String,
         require: true
+    },
+    idUngVien: {
+        type: String,
     }
 })
 

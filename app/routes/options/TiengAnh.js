@@ -5,7 +5,7 @@ const TiengAnhController = require('../../controllers/options/TiengAnh.controlle
 
 router.post('/', TiengAnhController.ThemTiengAnh)
 router.put('/:id', TiengAnhController.SuaTiengAnh)
-router.delete('/:id', TiengAnhController.XoaTiengAnh)
-router.get('/', TiengAnhController.getAllTiengAnh)
+// router.delete('/:id', TiengAnhController.XoaTiengAnh)
+router.get('/', TiengAnhController.getAllTiengAnh) 
 
 module.exports = router

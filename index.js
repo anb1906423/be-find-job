@@ -33,6 +33,8 @@ app.use('/ung-vien', require('./app/routes/UngVien'))
 app.use('/nha-tuyen-dung', require('./app/routes/NhaTuyenDung'))
 app.use('/cong-viec', require('./app/routes/CongViec'))
 
+app.use('/quan-tri-vien', require('./app/routes/QuanTriVien'))
+
 app.use('/muc-luong', require('./app/routes/options/MucLuong'))
 app.use('/bang-cap', require('./app/routes/options/BangCap'))
 app.use('/dia-diem-lam-viec', require('./app/routes/options/DiaDiemLamViec'))
