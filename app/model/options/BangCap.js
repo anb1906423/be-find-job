@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const BangCapSchema = new Schema({
     ten: {
         type: String,
-        required: true
+        required: false
     },
     donViDaoTao: {
         type: String,

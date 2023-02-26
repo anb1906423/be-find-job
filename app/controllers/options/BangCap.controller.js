@@ -6,11 +6,11 @@ const ThemBangCap = async (req, res) => {
         message: 'Bằng cấp không được để trống'
     })
 
-    const foundBangCap = await BangCap.findOne({
-        ten: ten
-    }).exec()
+    // const foundBangCap = await BangCap.findOne({
+    //     ten: ten
+    // }).exec()
 
-    if (foundBangCap) return res.status(400).json({ message: 'Bằng cấp đã tồn tại!' })
+    // if (foundBangCap) return res.status(400).json({ message: 'Bằng cấp đã tồn tại!' })
 
     const bangCap = new BangCap({ ten, donViDaoTao, xepLoai })
     await bangCap.save()
