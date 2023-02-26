@@ -83,9 +83,47 @@ const HamThayDoiMatKhau = async (req, res) => {
     }
 }
 
+const onState = async (req, res, next) => {
+    const ung_vien_id = req.body.ung_vien_id;
+    if (!ung_vien_id) return res.status(400).send('Trường ung_vien_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedUngVien = await UngVien.findByIdAndUpdate(
+            ung_vien_id,
+            { state: true },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedUngVien);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái ứng viên!' })
+    }
+}
+
+const offState = async (req, res, next) => {
+    const ung_vien_id = req.body.ung_vien_id;
+    if (!ung_vien_id) return res.status(400).send('Trường ung_vien_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedUngVien = await UngVien.findByIdAndUpdate(
+            ung_vien_id,
+            { state: false },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedUngVien);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái ứng viên!' })
+    }
+}
+
 module.exports = {
     traVeUngVien,
     traVeTatCaUngVien,
     capNhatThongTinUngVien,
-    HamThayDoiMatKhau
+    HamThayDoiMatKhau,
+    onState,
+    offState
 };

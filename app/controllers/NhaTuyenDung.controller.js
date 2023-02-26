@@ -75,9 +75,47 @@ const HamThayDoiMatKhau = async (req, res) => {
     }
 }
 
+const onState = async (req, res, next) => {
+    const nha_tuyen_dung_id = req.body.nha_tuyen_dung_id;
+    if (!nha_tuyen_dung_id) return res.status(400).send('Trường nha_tuyen_dung_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedNhaTuyenDung = await NhaTuyenDung.findByIdAndUpdate(
+            nha_tuyen_dung_id,
+            { state: true },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedNhaTuyenDung);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái nhà tuyển dụng!' })
+    }
+}
+
+const offState = async (req, res, next) => {
+    const nha_tuyen_dung_id = req.body.nha_tuyen_dung_id;
+    if (!nha_tuyen_dung_id) return res.status(400).send('Trường nha_tuyen_dung_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedNhaTuyenDung = await NhaTuyenDung.findByIdAndUpdate(
+            nha_tuyen_dung_id,
+            { state: false },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedNhaTuyenDung);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái nhà tuyển dụng!' })
+    }
+}
+
 module.exports = {
     traVeNhaTuyenDung,
     traVeTatCaNhaTuyenDung,
     capNhatThongTinNhaTuyenDung,
     HamThayDoiMatKhau,
+    onState,
+    offState,
 };

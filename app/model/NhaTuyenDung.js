@@ -54,6 +54,10 @@ const NhaTuyenDungSchema = new Schema({
         type: Number,
         default: 0,
     },
+    state: {
+        type: Boolean,
+        default: true
+    },
     created_at: {
         type: Date,
         default: Date.now

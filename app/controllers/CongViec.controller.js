@@ -116,10 +116,48 @@ const xoaCongViec = async (req, res) => {
     res.json(result);
 }
 
+const onState = async (req, res, next) => {
+    const cong_viec_id = req.body.cong_viec_id;
+    if (!cong_viec_id) return res.status(400).send('Trường cong_viec_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedCongViec = await CongViec.findByIdAndUpdate(
+            cong_viec_id,
+            { state: true },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedCongViec);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái công việc!' })
+    }
+}
+
+const offState = async (req, res, next) => {
+    const cong_viec_id = req.body.cong_viec_id;
+    if (!cong_viec_id) return res.status(400).send('Trường cong_viec_id không tồn tại');
+
+    try {
+        // Update the matching document to set the `state` field to `true`
+        const updatedCongViec = await CongViec.findByIdAndUpdate(
+            cong_viec_id,
+            { state: false },
+            { new: true } // Return the updated document
+        );
+
+        return res.send(updatedCongViec);
+    } catch (error) {
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi trạng thái công việc!' })
+    }
+}
+
 module.exports = {
     DangBaiTuyenDung,
     traVeTatCaCongViec,
     traVeCongViec,
     xoaCongViec,
     capNhatCongViec,
+    onState,
+    offState
 }

@@ -60,6 +60,10 @@ const UngVienSchema = new Schema({
     diaDiemMongMuonLamViec: {
         type: [String]
     },
+    state: {
+        type: Boolean,
+        default: false
+    },
     created_at: {
         type: Date,
         default: Date.now

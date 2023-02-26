@@ -77,9 +77,9 @@ const CongViecSchema = new Schema({
         required: true,
     },
     // Đóng / Mở bài đăng
-    isShow : {
+    state: {
         type: Boolean,
-        default: true,
+        default: false,
     }
 })
 
