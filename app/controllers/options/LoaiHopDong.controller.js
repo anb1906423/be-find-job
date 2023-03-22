@@ -28,7 +28,7 @@ const SuaLoaiHopDong = async (req, res) => {
 
     const foundLoaiHopDong = await LoaiHopDong.findOne({ ten: ten }).exec();
 
-    if (foundLoaiHopDong) return res.status(400).json({ "message": "Loại hợp đồng đã tồn tại" });
+    if (foundLoaiHopDong) return res.status(400).json({ message: "Loại hợp đồng đã tồn tại" });
     const loaiHopDong = await LoaiHopDong.findByIdAndUpdate(id, { ten }, { new: true });
     if (!loaiHopDong) return res.status(404).json({ message: 'Không tìm thấy loại hợp đồng' }); // Salary not found
 

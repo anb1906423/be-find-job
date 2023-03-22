@@ -54,6 +54,7 @@ const traVeCongViec = async (req, res) => {
     if (!congViec) {
         return res.status(204).json({ 'message': `Job ID ${req.params.id} not found` });
     }
+
     res.json(congViec);
 }
 

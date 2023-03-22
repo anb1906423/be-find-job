@@ -10,7 +10,7 @@ const ThemMucLuong = async (req, res) => {
         ten: ten
     }).exec();
 
-    if (foundMucLuong && foundMucLuong._id != id) return res.status(400).json({ "message": "Mức lương đã tồn tại" });
+    if (foundMucLuong) return res.status(400).json({ "message": "Mức lương đã tồn tại" });
 
     const mucLuong = new MucLuong({ ten });
     await mucLuong.save();

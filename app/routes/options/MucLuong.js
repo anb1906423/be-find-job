@@ -4,9 +4,9 @@ const verifyJWT = require('../../middlewares/verifyJWT')
 
 const MucLuongController = require('../../controllers/options/MucLuong.controller')
 
-router.post('/', [verifyJWT], MucLuongController.ThemMucLuong)
-router.get('/', [verifyJWT], MucLuongController.getAllMucLuongs)
-router.put('/:id', [verifyJWT], MucLuongController.SuaMucLuong)
-router.delete('/:id', [verifyJWT], MucLuongController.XoaMucLuong)
+router.post('/', MucLuongController.ThemMucLuong)
+router.get('/', MucLuongController.getAllMucLuongs)
+router.put('/:id', MucLuongController.SuaMucLuong)
+router.delete('/:id', MucLuongController.XoaMucLuong)
 
 module.exports = router
