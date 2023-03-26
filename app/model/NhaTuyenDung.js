@@ -47,6 +47,9 @@ const NhaTuyenDungSchema = new Schema({
     linhVucNgheNghiep: {
         type: String
     },
+    loaiHinhDoanhNghiep: {
+        type: String
+    },
     anhCongTy: {
         type: String
     },
