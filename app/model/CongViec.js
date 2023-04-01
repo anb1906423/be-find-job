@@ -56,10 +56,20 @@ const CongViecSchema = new Schema({
         type: Date,
         default: Date.now
     },
-    // Chế độ phúc lợi
-    cheDoPhucLoi: {
+    // Chế độ phúc lợi (markdown)
+    contentMarkDown: {
         type: String,
     },
+    contentHTML: {
+        type: String,
+    },
+    // Đóng / Mở bài đăng
+    state: {
+        type: Boolean,
+        default: false,
+    },
+
+
     yeuCauHoSo: {
         type: String,
         required: true,
