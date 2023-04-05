@@ -11,12 +11,14 @@ const DangBaiTuyenDung = async (req, res) => {
         diaChiNopTrucTiep, yeuCauHoSo,
         // required: false
         kinhNghiem, bangCap, yeuCauGioiTinh,
-        cheDoPhucLoi, hotline, isShow
+        cheDoPhucLoi, hotline, state,
+        contentMarkDown, contentHTML,
+        emailCty
     } = req.body
     if (!chucDanh || !capBac || !loaiHopDong || !mucLuong ||
         !diaDiemLamViec || !linhVucNgheNghiep || !hanNopHoSo ||
         !soLuong || !moTa || !yeuCauTuyenDung || !emailNopHoSo ||
-        !diaChiNopTrucTiep || !yeuCauHoSo) {
+        !diaChiNopTrucTiep || !yeuCauHoSo || !emailCty) {
         return res.status(400).json({ 'message': 'Required!' })
     }
     try {
@@ -39,7 +41,10 @@ const DangBaiTuyenDung = async (req, res) => {
             "cheDoPhucLoi": cheDoPhucLoi,
             "yeuCauHoSo": yeuCauHoSo,
             "hotline": hotline,
-            "isShow": isShow
+            "state": state,
+            "contentMarkDown": contentMarkDown,
+            "contentHTML": contentHTML,
+            "emailCty": emailCty
         })
         console.log(result);
         res.status(201).send({ message: `Đăng tuyển thành công ${chucDanh}!` })

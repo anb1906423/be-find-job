@@ -66,9 +66,8 @@ const CongViecSchema = new Schema({
     // Đóng / Mở bài đăng
     state: {
         type: Boolean,
-        default: false,
+        default: true,
     },
-
 
     yeuCauHoSo: {
         type: String,
@@ -86,10 +85,9 @@ const CongViecSchema = new Schema({
         type: String,
         required: true,
     },
-    // Đóng / Mở bài đăng
-    state: {
-        type: Boolean,
-        default: false,
+    emailCty: {
+        type: String,
+        required: true,
     }
 })
 
