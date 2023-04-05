@@ -64,8 +64,11 @@ const traVeCongViec = async (req, res) => {
 }
 
 const traVeTatCaCongViec = async (req, res) => {
-    const congViec = await CongViec.find();
-    if (!congViec) return res.status(204).json({ 'message': 'Không tìm thấy công việc nào!' });
+    const email = req.body.email;
+    const congViec = await CongViec.find({ emailCty: email });
+    if (!congViec || congViec.length === 0) {
+        return res.status(204).json({ message: 'Không tìm thấy công việc nào!' });
+    }
     res.json(congViec);
 }
 
