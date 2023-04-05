@@ -63,12 +63,26 @@ const traVeCongViec = async (req, res) => {
     res.json(congViec);
 }
 
-const traVeTatCaCongViec = async (req, res) => {
-    const email = req.body.email;
-    const congViec = await CongViec.find({ emailCty: email });
-    if (!congViec || congViec.length === 0) {
-        return res.status(204).json({ message: 'Không tìm thấy công việc nào!' });
+const traVeTatCaCongViecCuaNhaTuyenDung = async (req, res) => {
+    try {
+        const { emailCty } = req.body;
+
+        const congViec = await CongViec.find({ emailCty });
+
+        if (!congViec) {
+            return res.status(204).json({ 'message': 'Không tìm thấy công việc nào!' });
+        }
+
+        res.json(congViec);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ 'message': 'Đã xảy ra lỗi!' });
     }
+}
+
+const traVeTatCaCongViec = async (req, res) => {
+    const congViec = await CongViec.find();
+    if (!congViec) return res.status(204).json({ 'message': 'Không tìm thấy công việc nào!' });
     res.json(congViec);
 }
 
@@ -167,6 +181,7 @@ module.exports = {
     traVeCongViec,
     xoaCongViec,
     capNhatCongViec,
+    traVeTatCaCongViecCuaNhaTuyenDung,
     onState,
     offState
 }

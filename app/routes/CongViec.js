@@ -3,8 +3,9 @@ const router = express.Router()
 
 const CongViecController = require('../controllers/CongViec.controller')
 
-router.get('/:id', CongViecController.traVeCongViec)
+router.get('/bai-dang-cong-ty', CongViecController.traVeTatCaCongViecCuaNhaTuyenDung)
 router.get('/', CongViecController.traVeTatCaCongViec)
+router.get('/:id', CongViecController.traVeCongViec)
 router.post('/create', CongViecController.DangBaiTuyenDung)
 router.put('/update/:id', CongViecController.capNhatCongViec)
 
