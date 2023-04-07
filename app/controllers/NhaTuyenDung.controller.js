@@ -13,6 +13,15 @@ const traVeNhaTuyenDung = async (req, res) => {
     res.json(nhaTuyenDung);
 }
 
+const traVeNhaTuyenDungVoiEmail = async (req, res) => {
+    if (!req?.headers?.email) return res.status(400).json({ "message": 'email nhà tuyển dụng không được để trống' });
+    const nhaTuyenDung = await NhaTuyenDung.findOne({ email: req.headers.email }).exec();
+    if (!nhaTuyenDung) {
+        return res.status(204).json({ 'message': `User ID ${req.headers.email} not found` });
+    }
+    res.json(nhaTuyenDung);
+}
+
 const traVeTatCaNhaTuyenDung = async (req, res) => {
     const nhaTuyenDung = await NhaTuyenDung.find();
     if (!nhaTuyenDung) return res.status(204).json({ 'message': 'Không tìm thấy nhà tuyển dụng nào!' });
@@ -114,6 +123,7 @@ const offState = async (req, res, next) => {
 module.exports = {
     traVeNhaTuyenDung,
     traVeTatCaNhaTuyenDung,
+    traVeNhaTuyenDungVoiEmail,
     capNhatThongTinNhaTuyenDung,
     HamThayDoiMatKhau,
     onState,

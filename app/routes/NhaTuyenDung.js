@@ -6,6 +6,7 @@ const CongViecController = require('../controllers/CongViec.controller')
 
 router.get('/', NhaTuyenDung.traVeTatCaNhaTuyenDung)
 router.get('/:id', NhaTuyenDung.traVeNhaTuyenDung)
+router.get('/email', NhaTuyenDung.traVeNhaTuyenDungVoiEmail)
 router.put('/doi-mat-khau/:id', NhaTuyenDung.HamThayDoiMatKhau)
 router.put('/on', NhaTuyenDung.onState)
 router.put('/off', NhaTuyenDung.offState)
