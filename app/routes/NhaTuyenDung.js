@@ -11,6 +11,7 @@ router.put('/doi-mat-khau/:id', NhaTuyenDung.HamThayDoiMatKhau)
 router.put('/on', NhaTuyenDung.onState)
 router.put('/off', NhaTuyenDung.offState)
 router.put('/:id', NhaTuyenDung.capNhatThongTinNhaTuyenDung)
+router.post('/search', NhaTuyenDung.timKiemNhaTuyenDungQuaEmail)
 
 router.post('/dang-tin', CongViecController.DangBaiTuyenDung)
 router.get('/quan-ly-tin', CongViecController.traVeTatCaCongViec)

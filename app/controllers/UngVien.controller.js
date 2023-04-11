@@ -19,6 +19,22 @@ const traVeTatCaUngVien = async (req, res) => {
     res.json(ungVien);
 }
 
+const timKiemUngVienQuaEmail = async (req, res) => {
+    const email = req.body.email;
+
+    try {
+        // Tìm kiếm ứng viên có email khớp với từ khóa tìm kiếm
+        const result = await UngVien.find({ email: { $regex: new RegExp(email, 'i') } });
+
+        // Gửi kết quả trả về cho client
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+};
+
+
 const capNhatThongTinUngVien = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(new BadRequestError(400,
@@ -58,7 +74,7 @@ const capNhatThongTinUngVien = async (req, res, next) => {
 }
 
 const HamThayDoiMatKhau = async (req, res) => {
-    
+
     const { email, matKhauCu, matKhauMoi } = req.body
     if (!email || !matKhauCu || !matKhauMoi) return res.status(400).json({ 'message': 'Email, mật khẩu cũ và mật khẩu mới không được để trống!' })
     if (req.body?.matKhauMoi.length < 8) {
@@ -122,6 +138,7 @@ const offState = async (req, res, next) => {
 module.exports = {
     traVeUngVien,
     traVeTatCaUngVien,
+    timKiemUngVienQuaEmail,
     capNhatThongTinUngVien,
     HamThayDoiMatKhau,
     onState,

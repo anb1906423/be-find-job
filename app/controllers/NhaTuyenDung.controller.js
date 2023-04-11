@@ -28,6 +28,21 @@ const traVeTatCaNhaTuyenDung = async (req, res) => {
     res.json(nhaTuyenDung);
 }
 
+const timKiemNhaTuyenDungQuaEmail = async (req, res) => {
+    const email = req.body.email;
+
+    try {
+        // Tìm kiếm ứng viên có email khớp với từ khóa tìm kiếm
+        const result = await NhaTuyenDung.find({ email: { $regex: new RegExp(email, 'i') } });
+
+        // Gửi kết quả trả về cho client
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+};
+
 const capNhatThongTinNhaTuyenDung = async (req, res, next) => {
     if (Object.keys(req.body).length === 0) {
         return next(new BadRequestError(400,
@@ -124,6 +139,7 @@ module.exports = {
     traVeNhaTuyenDung,
     traVeTatCaNhaTuyenDung,
     traVeNhaTuyenDungVoiEmail,
+    timKiemNhaTuyenDungQuaEmail,
     capNhatThongTinNhaTuyenDung,
     HamThayDoiMatKhau,
     onState,
