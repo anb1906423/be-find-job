@@ -1,5 +1,6 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
+const Schema = mongoose.Schema;
 
 const UngVienSchema = new Schema({
     hoVaTen: {
@@ -34,51 +35,53 @@ const UngVienSchema = new Schema({
         type: Boolean,
     },
     viTriMongMuon: {
-        type: String
+        type: String,
     },
     capBac: {
-        type: String
+        type: String,
     },
     mucLuongMongMuon: {
-        type: String
+        type: String,
     },
     kinhNghiem: {
-        type: String
+        type: String,
     },
     hocVan: {
-        type: String
+        type: String,
     },
     gioiThieu: {
-        type: String
+        type: String,
     },
     mucTieuNgheNghiep: {
-        type: String
+        type: String,
     },
     linhVucNgheNghiep: {
-        type: [String]
+        type: [String],
     },
     diaDiemMongMuonLamViec: {
-        type: [String]
+        type: [String],
     },
     state: {
         type: Boolean,
-        default: true
+        default: true,
     },
     created_at: {
         type: Date,
-        default: Date.now
+        default: Date.now,
     },
     roles: {
         type: Number,
         default: -1,
     },
     refreshToken: [String],
-})
+});
+
+UngVienSchema.plugin(mongoosePaginate);
 
 UngVienSchema.method("toJSON", function () {
-    const { __v, _id, ...object } = this.toObject()
-    object.id = _id
-    return object
-})
+    const { __v, _id, ...object } = this.toObject();
+    object.id = _id;
+    return object;
+});
 
-module.exports = mongoose.model('UngVien', UngVienSchema)
+module.exports = mongoose.model("UngVien", UngVienSchema);
