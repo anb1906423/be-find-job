@@ -117,6 +117,20 @@ const traVeTatCaCongViecCuaNhaTuyenDung = async (req, res) => {
     }
 };
 
+const timKiemCongViecQuaDiaDiem = async (req, res) => {
+    const diaDiemLamViec = req.body.diaDiemLamViec;
+
+    try {
+        const result = await CongViec.find({ diaDiemLamViec: { $regex: new RegExp(diaDiemLamViec, 'i') } });
+
+        // Gửi kết quả trả về cho client
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+};
+
 const traVeTatCaCongViec = async (req, res) => {
     const congViec = await CongViec.find();
     if (!congViec)
@@ -236,6 +250,7 @@ module.exports = {
     traVeTatCaCongViec,
     traVeCongViec,
     xoaCongViec,
+    timKiemCongViecQuaDiaDiem,
     capNhatCongViec,
     traVeTatCaCongViecCuaNhaTuyenDung,
     onState,

@@ -9,7 +9,8 @@ router.get(
 );
 router.get("/", CongViecController.traVeTatCaCongViec);
 router.get("/:id", CongViecController.traVeCongViec);
-router.post("/create", CongViecController.DangBaiTuyenDung);
+router.post("/search", CongViecController.timKiemCongViecQuaDiaDiem);
+router.post("/create", CongViecController.DangBaiTuyenDung); 
 router.put("/update/:id", CongViecController.capNhatCongViec);
 
 router.delete("/delete/:id", CongViecController.xoaCongViec);
