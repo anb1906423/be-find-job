@@ -2,17 +2,8 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 class EmailServieces {
-    async sendSimpleEmail(dataSend) {
+    async sendEmailToNhaTuyenDung(dataSend) {
         try {
-            console.log("check data send :", dataSend.email);
-            console.log(
-                "check process.env.EMAIL_APP_NAME : ",
-                process.env.EMAIL_APP_NAME
-            );
-            console.log(
-                "check process.env.EMAIL_APP_PASSWORD : ",
-                process.env.EMAIL_APP_PASSWORD
-            );
             let transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 port: 587,
@@ -20,15 +11,15 @@ class EmailServieces {
                 logger: false,
                 secure: false, // true for 465, false for other ports
                 auth: {
-                    user: "truongsonpt.80@gmail.com", // generated ethereal user
-                    pass: "dexkvtwmndfnfome", // generated ethereal password
+                    user: process.env.EMAIL_APP_NAME, // generated ethereal user
+                    pass: process.env.EMAIL_APP_PASSWORD, // generated ethereal password
                 },
             });
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
                 from: "Find Job Trang Wen Ứng Tuyển Và Tìm Kiếm Việc Làm", // sender address
-                to: "anb1906423@student.ctu.edu.vn", // list of receivers
+                to: dataSend.emailNhaTuyenDung, // list of receivers
                 subject: "Thông Báo Từ WebSite", // Subject line
                 html: this.getLanguageBodyHTML(dataSend), // html body
             });
@@ -45,23 +36,35 @@ class EmailServieces {
         <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ABC,</p>
         <p style="font-size: 16px; line-height: 1.5">
             Chúng tôi xin thông báo rằng có một ứng viên đã nộp đơn tuyển dụng vào
-            công ty của bạn.
+            công ty của bạn vào lúc: <span style="margin: 0 8px;">${new Date(
+                +dataSend?.time
+            )}</span>
         </p>
         <table style="border-collapse: collapse; width: 100%; margin: 20px 0">
             <tr>
+                <td style="border: 1px solid #ccc; padding: 10px">Email ứng viên:</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${
+                    dataSend?.emailUngVien
+                }</td>
+            </tr>
+            <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">Tên ứng viên:</td>
-                <td style="border: 1px solid #ccc; padding: 10px">Nguyễn Văn A</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${
+                    dataSend?.hoVaTen
+                }</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">
                     Số điện thoại:
                 </td>
-                <td style="border: 1px solid #ccc; padding: 10px">0987654321</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${
+                    dataSend?.soDienThoai
+                }</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">Địa chỉ:</td>
                 <td style="border: 1px solid #ccc; padding: 10px">
-                    Số 1 đường ABC, Quận XYZ, TP.HCM
+                ${dataSend?.diaChi}
                 </td>
             </tr>
         </table>

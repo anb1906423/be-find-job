@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
-const Schema = mongoose.Schema;
 
-const ungTuyen = new Schema({
+const ungTuyenSchema = new mongoose.Schema({
     idUngVien: {
         type: String,
         required: true,
@@ -15,24 +14,38 @@ const ungTuyen = new Schema({
         type: String,
         required: true,
     },
-    email: {
+    emailUngVien: {
+        type: String,
+        required: true,
+    },
+    emailNhaTuyenDung: {
         type: String,
         required: true,
     },
     soDienThoai: {
         type: String,
+        required: true,
     },
-    kinhNghiem: {
-        type: String,
+    isNotify: {
+        type: Boolean,
+        default: true,
+    },
+    isNew: {
+        type: Boolean,
+        default: true,
+    },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
+    created_at: {
+        type: Date,
+        default: Date.now,
     },
 });
 
-ungTuyen.plugin(mongoosePaginate);
+ungTuyenSchema.plugin(mongoosePaginate);
 
-ungTuyen.method("toJSON", function () {
-    const { __v, _id, ...object } = this.toObject();
-    object.id = _id;
-    return object;
-});
+const UngTuyen = mongoose.model("UngTuyen", ungTuyenSchema);
 
-module.exports = mongoose.model("UngVien", ungTuyen);
+module.exports = UngTuyen;
