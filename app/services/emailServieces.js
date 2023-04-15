@@ -68,6 +68,16 @@ class EmailServieces {
                 </td>
             </tr>
         </table>
+        ${
+            dataSend.markDown &&
+            `<div style="margin: 10px">
+                    <label style="font-weight: 700; margin: 6px 0;">
+                        Đôi lời nhắn gửi đến nhà tuyển dụng của ứng viên
+                    </label>
+                    <p>${dataSend.markDown}</p>
+                </div>`
+        }
+       
         <p style="font-size: 16px; line-height: 1.5">
             Chúng tôi hy vọng thông tin này sẽ hữu ích cho công ty của bạn và xin
             chúc công ty luôn thành công.
