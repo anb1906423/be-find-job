@@ -57,9 +57,9 @@ class ungTuyenServices {
         });
     }
 
-    async GetLimitUngVienUngTuyen(page, limit, idNhaTuyenDung, type) {
+    async GetLimitUngVienUngTuyen(page, limit, idQuery, type, queryType) {
         return new Promise(async (resolve, reject) => {
-            if (!idNhaTuyenDung) {
+            if (!idQuery) {
                 return reject("Missing required parameter idNhaTuyenDung");
             }
 
@@ -68,11 +68,13 @@ class ungTuyenServices {
                 page: page || 1,
             };
 
+            const whereType = queryType || "idNhaTuyenDung";
+
             try {
                 const { docs, prevPage, nextPage, ...pagination } =
                     await ungTuyenModel.paginate(
                         {
-                            idNhaTuyenDung,
+                            [whereType]: idQuery,
                             isDeleted: type ? type : false,
                         },
                         options

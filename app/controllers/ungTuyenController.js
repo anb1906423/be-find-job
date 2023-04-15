@@ -23,8 +23,9 @@ class ungTuyenController {
             const data = await ungTuyenServices.GetLimitUngVienUngTuyen(
                 req.query.page,
                 req.query.limit,
-                req.body.idNhaTuyenDung,
-                req.body.type
+                req.body.idQuery,
+                req.body.type,
+                req.query.queryType
             );
 
             return res.status(200).json(data);
