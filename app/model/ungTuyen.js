@@ -10,11 +10,23 @@ const ungTuyenSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    idJobPost: {
+        type: String,
+        required: true,
+    },
     time: {
         type: String,
         required: true,
     },
     emailUngVien: {
+        type: String,
+        required: true,
+    },
+    tenCongty: {
+        type: String,
+        required: true,
+    },
+    tenJob: {
         type: String,
         required: true,
     },

@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 const initAlUngTuyenRouter = (app) => {
     router.post("/send-email", ungTuyenController.SendDataApplyNhaTuyenDung);
-    router.get(
+    router.post(
         "/get-all-limit-ung-vien-ung-tuyen",
         ungTuyenController.GetLimitUngVienUngTuyen
     );

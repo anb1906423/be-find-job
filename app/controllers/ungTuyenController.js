@@ -41,9 +41,7 @@ class ungTuyenController {
 
     async PostCheckIsNew(req, res) {
         try {
-            const data = await ungTuyenServices.PostCheckIsNew(
-                req.body.idUngVien
-            );
+            const data = await ungTuyenServices.PostCheckIsNew(req.body.id);
 
             return res.status(200).json(data);
         } catch (error) {

@@ -33,7 +33,9 @@ class EmailServieces {
         <h2 style="color: #0052cc; font-size: 24px; margin-bottom: 20px">
             Thông báo tuyển dụng
         </h2>
-        <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ABC,</p>
+        <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ${
+            dataSend.tenCongty
+        },</p>
         <p style="font-size: 16px; line-height: 1.5">
             Chúng tôi xin thông báo rằng có một ứng viên đã nộp đơn tuyển dụng vào
             công ty của bạn vào lúc: <span style="margin: 0 8px;">${new Date(

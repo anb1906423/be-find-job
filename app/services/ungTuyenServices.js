@@ -13,7 +13,10 @@ class ungTuyenServices {
                     !data.emailUngVien ||
                     !data.hoVaTen ||
                     !data.diaChi ||
-                    !data.soDienThoai
+                    !data.soDienThoai ||
+                    !data.tenCongty ||
+                    !data.tenJob ||
+                    !data.idJobPost
                 ) {
                     return resolve({
                         errCode: 1,
@@ -24,12 +27,16 @@ class ungTuyenServices {
                 const checkExists = await ungTuyenModel
                     .findOne({
                         idUngVien: data.idUngVien,
+                        idJobPost: data.idJobPost,
                     })
                     .exec();
 
                 if (checkExists) {
                     await ungTuyenModel
-                        .deleteOne({ idUngVien: data.idUngVien })
+                        .deleteOne({
+                            idUngVien: data.idUngVien,
+                            idJobPost: data.idJobPost,
+                        })
                         .exec();
                 }
 
@@ -38,12 +45,15 @@ class ungTuyenServices {
                 const dataAwait = await ungTuyenModel.create({
                     idUngVien: data.idUngVien,
                     idNhaTuyenDung: data.idNhaTuyenDung,
+                    idJobPost: data.idJobPost,
                     time: data.time,
                     emailNhaTuyenDung: data.emailNhaTuyenDung,
                     emailUngVien: data.emailUngVien,
                     soDienThoai: data.soDienThoai,
                     isNotify: true,
                     isNew: true,
+                    tenCongty: data.tenCongty,
+                    tenJob: data.tenJob,
                 });
 
                 resolve({
@@ -121,31 +131,32 @@ class ungTuyenServices {
         });
     }
 
-    async PostCheckIsNew(idUngVien) {
+    async PostCheckIsNew(id) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!idUngVien) {
+                if (!id) {
                     return resolve({
                         errCode: 1,
                         msg: "Missing required parameter",
                     });
                 }
 
-                const checkExists = await ungTuyenModel.findOne({
-                    idUngVien,
-                });
+                const checkExists = await ungTuyenModel
+                    .findOne({
+                        _id: id,
+                    })
+                    .exec();
 
                 if (checkExists) {
-                    await ungTuyenModel.updateMany(
-                        { idUngVien },
-                        {
-                            isNew: false,
-                        }
-                    );
-
-                    const data = await ungTuyenModel.findOne({
-                        idUngVien,
+                    await ungTuyenModel.findByIdAndUpdate(id, {
+                        isNew: false,
                     });
+
+                    const data = await ungTuyenModel
+                        .findOne({
+                            _id: id,
+                        })
+                        .exec();
 
                     resolve({
                         errCode: 0,
@@ -168,28 +179,29 @@ class ungTuyenServices {
     async TrashungVienUngVienUngTuyen(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!data.idUngVien || !data.type) {
+                if (!data.id || !data.type) {
                     return resolve({
                         errCode: 1,
                         msg: "Missing required parameters",
                     });
                 }
 
-                const checkExists = await ungTuyenModel.findOne({
-                    idUngVien: data.idUngVien,
-                });
+                const checkExists = await ungTuyenModel
+                    .findOne({
+                        _id: data.id,
+                    })
+                    .exec();
 
                 if (checkExists) {
-                    await ungTuyenModel.updateMany(
-                        { idUngVien: data.idUngVien },
-                        {
-                            isDeleted: data.type,
-                        }
-                    );
-
-                    const dataAwait = await ungTuyenModel.findOne({
-                        idUngVien: data.idUngVien,
+                    await ungTuyenModel.findByIdAndUpdate(data.id, {
+                        isDeleted: data.type,
                     });
+
+                    const dataAwait = await ungTuyenModel
+                        .findOne({
+                            _id: data.id,
+                        })
+                        .exec();
 
                     resolve({
                         errCode: 0,
