@@ -179,7 +179,7 @@ class ungTuyenServices {
     async TrashungVienUngVienUngTuyen(data) {
         return new Promise(async (resolve, reject) => {
             try {
-                if (!data.id || !data.type) {
+                if (!data.id) {
                     return resolve({
                         errCode: 1,
                         msg: "Missing required parameters",
