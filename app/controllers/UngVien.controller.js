@@ -99,10 +99,10 @@ const capNhatThongTinUngVien = async (req, res, next) => {
 };
 
 const HamThayDoiMatKhau = async (req, res) => {
-    const { email, matKhauCu, matKhauMoi } = req.body;
-    if (!email || !matKhauCu || !matKhauMoi)
+    const { id, matKhauCu, matKhauMoi } = req.body;
+    if (!id || !matKhauCu || !matKhauMoi)
         return res.status(400).json({
-            message: "Email, mật khẩu cũ và mật khẩu mới không được để trống!",
+            message: "id, mật khẩu cũ và mật khẩu mới không được để trống!",
         });
     if (req.body?.matKhauMoi.length < 8) {
         return res.send({
@@ -111,7 +111,7 @@ const HamThayDoiMatKhau = async (req, res) => {
         });
     }
 
-    const foundUngVien = await UngVien.findOne({ email: email }).exec();
+    const foundUngVien = await UngVien.findById(id).exec();
     if (!foundUngVien) {
         return res
             .status(404)
@@ -126,8 +126,8 @@ const HamThayDoiMatKhau = async (req, res) => {
 
     try {
         const hashedPwd = await bcrypt.hash(matKhauMoi, 8);
-        const updatedUngVien = await UngVien.findOneAndUpdate(
-            { email: email },
+        const updatedUngVien = await UngVien.findByIdAndUpdate(
+            id,
             { matKhau: hashedPwd },
             { new: true }
         );
@@ -137,6 +137,7 @@ const HamThayDoiMatKhau = async (req, res) => {
         res.status(500).json({
             message:
                 "Đã xảy ra lỗi khi thay đổi mật khẩu, vui lòng thử lại sau!",
+                dataErr:`${err}`
         });
     }
 };

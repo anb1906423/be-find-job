@@ -75,13 +75,13 @@ const capNhatThongTinNhaTuyenDung = async (req, res, next) => {
 
 const HamThayDoiMatKhau = async (req, res) => {
 
-    const { email, matKhauCu, matKhauMoi } = req.body
-    if (!email || !matKhauCu || !matKhauMoi) return res.status(400).json({ 'message': 'Email, mật khẩu cũ và mật khẩu mới không được để trống!' })
+    const { id, matKhauCu, matKhauMoi } = req.body
+    if (!id || !matKhauCu || !matKhauMoi) return res.status(400).json({ 'message': 'id, mật khẩu cũ và mật khẩu mới không được để trống!' })
     if (req.body?.matKhauMoi.length < 8) {
         return res.send({ message: 'Mật khẩu mới phải có ít nhất 8 ký tự!', status: 400 });
     }
 
-    const foundNhaTuyenDung = await NhaTuyenDung.findOne({ email: email }).exec();
+    const foundNhaTuyenDung = await NhaTuyenDung.findById(id).exec();
     if (!foundNhaTuyenDung) {
         return res.status(404).json({ 'message': 'Không tìm thấy người dùng với email này!' })
     }
@@ -91,11 +91,15 @@ const HamThayDoiMatKhau = async (req, res) => {
 
     try {
         const hashedPwd = await bcrypt.hash(matKhauMoi, 8)
-        const updatedNhaTuyenDung = await NhaTuyenDung.findOneAndUpdate({ email: email }, { matKhau: hashedPwd }, { new: true })
+        const updatedNhaTuyenDung = await NhaTuyenDung.findByIdAndUpdate(id, { matKhau: hashedPwd }, { new: true })
 
         res.status(200).send({ message: 'Thay đổi mật khẩu thành công!' })
     } catch (err) {
-        res.status(500).json({ 'message': 'Đã xảy ra lỗi khi thay đổi mật khẩu, vui lòng thử lại sau!' })
+        res.status(500).json({
+            message:
+                "Đã xảy ra lỗi khi thay đổi mật khẩu, vui lòng thử lại sau!",
+                dataErr:`${err}`
+        });
     }
 }
 
