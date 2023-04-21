@@ -131,6 +131,21 @@ const timKiemCongViecQuaDiaDiem = async (req, res) => {
     }
 };
 
+const timKiemCongViecQuaChucDanh = async (req, res) => {
+    const chucDanh = req.body.chucDanh;
+
+    try {
+        // Tìm kiếm ứng viên có email khớp với từ khóa tìm kiếm
+        const result = await CongViec.find({ chucDanh: { $regex: new RegExp(chucDanh, 'i') } });
+
+        // Gửi kết quả trả về cho client
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+};
+
 const traVeTatCaCongViec = async (req, res) => {
     const congViec = await CongViec.find();
     if (!congViec)
@@ -251,6 +266,7 @@ module.exports = {
     traVeCongViec,
     xoaCongViec,
     timKiemCongViecQuaDiaDiem,
+    timKiemCongViecQuaChucDanh,
     capNhatCongViec,
     traVeTatCaCongViecCuaNhaTuyenDung,
     onState,

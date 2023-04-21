@@ -10,6 +10,7 @@ router.get(
 router.get("/", CongViecController.traVeTatCaCongViec);
 router.get("/:id", CongViecController.traVeCongViec);
 router.post("/search", CongViecController.timKiemCongViecQuaDiaDiem);
+router.post("/admin/search", CongViecController.timKiemCongViecQuaChucDanh);
 router.post("/create", CongViecController.DangBaiTuyenDung); 
 router.put("/update/:id", CongViecController.capNhatCongViec);
 
