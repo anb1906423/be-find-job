@@ -61,6 +61,10 @@ const NhaTuyenDungSchema = new Schema({
         type: Boolean,
         default: true
     },
+    isLoginFireBase: {
+        type: Boolean,
+        default: false,
+    },
     created_at: {
         type: Date,
         default: Date.now

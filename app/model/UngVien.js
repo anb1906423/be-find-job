@@ -73,6 +73,10 @@ const UngVienSchema = new Schema({
         type: Number,
         default: -1,
     },
+    isLoginFireBase: {
+        type: Boolean,
+        default: false,
+    },
     refreshToken: [String],
 });
 
