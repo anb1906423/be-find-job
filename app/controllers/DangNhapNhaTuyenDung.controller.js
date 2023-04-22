@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const DangNhapNhaTuyenDung = async (req, res) => {
     const cookies = req.cookies
 
-    const { email, matKhau } = req.body;
+    const { email, matKhau, isLoginFireBase  } = req.body;
     if (!email || !matKhau) return res.status(400).json({ "message": "Email and password are required" })
     const foundNhaTuyenDung = await NhaTuyenDung.findOne({ email: email }).exec()
     if (!foundNhaTuyenDung) {
@@ -24,7 +24,8 @@ const DangNhapNhaTuyenDung = async (req, res) => {
             {
                 "UserInfo": {
                     "email": foundNhaTuyenDung.email,
-                    "roles": roles
+                    "roles": roles,
+                    "isLoginFireBase": isLoginFireBase
                 }
             },
             process.env.ACCESS_TOKEN_SECRET || 'access-token-secret',
@@ -70,7 +71,7 @@ const DangNhapNhaTuyenDung = async (req, res) => {
         res.cookie('jwt', newRefreshToken, { httpOnly: true, secure: true, sameSite: 'None', maxAge: 24 * 60 * 60 * 1000 });
 
         // Send authorization roles and access token to user
-        res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id });
+        res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id, isLoginFireBase });
 
     } else {
         res.sendStatus(401);
