@@ -106,6 +106,7 @@ const DangNhapNhaTuyenDung = async (req, res) => {
                     diaChi: 'Đang cập nhật',
                     maSoThue: 'Đang cập nhật',
                     logoCty: data.logoCty || '',
+                    anhCongTy: data.logoCty || '',
                     isLoginFireBase: true,
                     matKhau: data.matKhau || '12345678',
                 });
