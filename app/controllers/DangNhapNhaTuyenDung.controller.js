@@ -88,11 +88,12 @@ const DangNhapNhaTuyenDung = async (req, res) => {
         }
     } else {
         let foundNhaTuyenDung = await NhaTuyenDung.findOne({ email: email, isLoginFireBase: true }).exec();
+        let foundNhaTuyenDungLoginEmail = await NhaTuyenDung.findOne({ email: email, isLoginFireBase: false }).exec();
         const foundEmailUngVien = await UngVien.findOne({ email: email }).exec();
 
         const data = req.body;
 
-        if (foundEmailUngVien) {
+        if (foundEmailUngVien || foundNhaTuyenDungLoginEmail) {
             res.status(401).send({ message: 'Email đã được sử dụng' }); //Incorrect username or password!
             return;
         }
