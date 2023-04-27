@@ -1,11 +1,11 @@
-require("dotenv").config();
-const nodemailer = require("nodemailer");
+require('dotenv').config();
+const nodemailer = require('nodemailer');
 
 class EmailServieces {
     async sendEmailToNhaTuyenDung(dataSend) {
         try {
             let transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
+                host: 'smtp.gmail.com',
                 port: 587,
                 debug: false,
                 logger: false,
@@ -18,9 +18,9 @@ class EmailServieces {
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-                from: "Find Job Trang Wen Ứng Tuyển Và Tìm Kiếm Việc Làm", // sender address
+                from: 'Find Job Trang Wen Ứng Tuyển Và Tìm Kiếm Việc Làm', // sender address
                 to: dataSend.emailNhaTuyenDung, // list of receivers
-                subject: "Thông Báo Từ WebSite", // Subject line
+                subject: 'Thông Báo Từ WebSite', // Subject line
                 html: this.getLanguageBodyHTML(dataSend), // html body
             });
         } catch (error) {
@@ -33,35 +33,25 @@ class EmailServieces {
         <h2 style="color: #0052cc; font-size: 24px; margin-bottom: 20px">
             Thông báo tuyển dụng
         </h2>
-        <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ${
-            dataSend.tenCongty
-        },</p>
+        <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ${dataSend.tenCongty},</p>
         <p style="font-size: 16px; line-height: 1.5">
             Chúng tôi xin thông báo rằng có một ứng viên đã nộp đơn tuyển dụng vào
-            công ty của bạn vào lúc: <span style="margin: 0 8px;">${new Date(
-                +dataSend?.time
-            )}</span>
+            công ty của bạn vào lúc: <span style="margin: 0 8px;">${new Date(+dataSend?.time)}</span>
         </p>
         <table style="border-collapse: collapse; width: 100%; margin: 20px 0">
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">Email ứng viên:</td>
-                <td style="border: 1px solid #ccc; padding: 10px">${
-                    dataSend?.emailUngVien
-                }</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${dataSend?.emailUngVien}</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">Tên ứng viên:</td>
-                <td style="border: 1px solid #ccc; padding: 10px">${
-                    dataSend?.hoVaTen
-                }</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${dataSend?.hoVaTen}</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">
                     Số điện thoại:
                 </td>
-                <td style="border: 1px solid #ccc; padding: 10px">${
-                    dataSend?.soDienThoai
-                }</td>
+                <td style="border: 1px solid #ccc; padding: 10px">${dataSend?.soDienThoai}</td>
             </tr>
             <tr>
                 <td style="border: 1px solid #ccc; padding: 10px">Địa chỉ:</td>
