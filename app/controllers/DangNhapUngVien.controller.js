@@ -17,7 +17,7 @@ const DangNhapUngVien = async (req, res) => {
         } else if (foundUngVien?.isLoginFireBase === true) {
             res.status(401).send({
                 message:
-                    'Tài Khoản của bạn đươc login bằng google vui lòng đăng nhập tài khoản google và thực hiện login !',
+                    'Vui lòng đăng nhập với Google!',
             }); //Incorrect username or password!
             return;
         }

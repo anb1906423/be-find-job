@@ -18,9 +18,9 @@ class EmailServieces {
 
             // send mail with defined transport object
             let info = await transporter.sendMail({
-                from: 'Find Job Trang Wen Ứng Tuyển Và Tìm Kiếm Việc Làm', // sender address
+                from: 'DreamJob - Website tìm kiếm việc làm', // sender address
                 to: dataSend.emailNhaTuyenDung, // list of receivers
-                subject: 'Thông Báo Từ WebSite', // Subject line
+                subject: `Ứng tuyển ${dataSend.tenJob} - ${dataSend.hoVaTen}`, // Subject line
                 html: this.getLanguageBodyHTML(dataSend), // html body
             });
         } catch (error) {
@@ -33,10 +33,11 @@ class EmailServieces {
         <h2 style="color: #0052cc; font-size: 24px; margin-bottom: 20px">
             Thông báo tuyển dụng
         </h2>
-        <p style="font-size: 16px; line-height: 1.5">Kính gửi công ty ${dataSend.tenCongty},</p>
+        <p style="font-size: 16px; line-height: 1.5">Xin chào ${dataSend.tenCongty}.</p>
         <p style="font-size: 16px; line-height: 1.5">
-            Chúng tôi xin thông báo rằng có một ứng viên đã nộp đơn tuyển dụng vào
-            công ty của bạn vào lúc: <span style="margin: 0 8px;">${new Date(+dataSend?.time)}</span>
+            Tôi là Thanh Thảo, đại diện cho website tìm kiếm việc làm DreamJob.
+            Tôi xin thông báo rằng đã có một ứng viên đã nộp hồ sơ ứng tuyển vào vị trí mà công ty của bạn đang tuyển dụng vào lúc:
+            <span style="margin: 0 8px;">${new Date(+dataSend?.time)}</span>
         </p>
         <table style="border-collapse: collapse; width: 100%; margin: 20px 0">
             <tr>
@@ -60,22 +61,20 @@ class EmailServieces {
                 </td>
             </tr>
         </table>
-        ${
-            dataSend.markDown &&
+        ${dataSend.markDown &&
             `<div style="margin: 10px">
                     <label style="font-weight: 700; margin: 6px 0;">
-                        Đôi lời nhắn gửi đến nhà tuyển dụng của ứng viên
+                        Lời nhắn của ứng viên
                     </label>
                     <p>${dataSend.markDown}</p>
                 </div>`
-        }
+            }
        
         <p style="font-size: 16px; line-height: 1.5">
-            Chúng tôi hy vọng thông tin này sẽ hữu ích cho công ty của bạn và xin
-            chúc công ty luôn thành công.
+            Chúc công ty luôn thành công.
         </p>
         <p style="font-size: 16px; line-height: 1.5">Trân trọng,</p>
-        <p style="font-size: 16px; line-height: 1.5">Ban tuyển dụng</p>
+        <p style="font-size: 16px; line-height: 1.5"><strong>Thanh Thảo</strong></p>
     </div>
     `;
 
