@@ -1,5 +1,6 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate-v2");
+const { string } = require('i/lib/util');
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const ungTuyenSchema = new mongoose.Schema({
     idUngVien: {
@@ -50,6 +51,15 @@ const ungTuyenSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
+    time_Appointment: {
+        type: String,
+        required: false,
+    },
+    isConfirmedNTD: {
+        type: Boolean,
+        default: false,
+        required: false,
+    },
     created_at: {
         type: Date,
         default: Date.now,
@@ -58,6 +68,6 @@ const ungTuyenSchema = new mongoose.Schema({
 
 ungTuyenSchema.plugin(mongoosePaginate);
 
-const UngTuyen = mongoose.model("UngTuyen", ungTuyenSchema);
+const UngTuyen = mongoose.model('UngTuyen', ungTuyenSchema);
 
 module.exports = UngTuyen;

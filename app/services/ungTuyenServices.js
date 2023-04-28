@@ -1,5 +1,5 @@
-const emailServieces = require("./emailServieces");
-const ungTuyenModel = require("../model/ungTuyen");
+const emailServieces = require('./emailServieces');
+const ungTuyenModel = require('../model/ungTuyen');
 
 class ungTuyenServices {
     SendDataApplyNhaTuyenDung(data) {
@@ -20,7 +20,7 @@ class ungTuyenServices {
                 ) {
                     return resolve({
                         errCode: 1,
-                        msg: "missing required parameters",
+                        msg: 'missing required parameters',
                     });
                 }
 
@@ -58,7 +58,7 @@ class ungTuyenServices {
 
                 resolve({
                     errCode: 0,
-                    msg: "Successfully apply to the Nha Tuyen Dung!",
+                    msg: 'Successfully apply to the Nha Tuyen Dung!',
                     data: dataAwait,
                 });
             } catch (error) {
@@ -70,7 +70,7 @@ class ungTuyenServices {
     async GetLimitUngVienUngTuyen(page, limit, idQuery, type, queryType) {
         return new Promise(async (resolve, reject) => {
             if (!idQuery) {
-                return reject("Missing required parameter idNhaTuyenDung");
+                return reject('Missing required parameter idNhaTuyenDung');
             }
 
             const options = {
@@ -78,17 +78,16 @@ class ungTuyenServices {
                 page: page || 1,
             };
 
-            const whereType = queryType || "idNhaTuyenDung";
+            const whereType = queryType || 'idNhaTuyenDung';
 
             try {
-                const { docs, prevPage, nextPage, ...pagination } =
-                    await ungTuyenModel.paginate(
-                        {
-                            [whereType]: idQuery,
-                            isDeleted: type ? type : false,
-                        },
-                        options
-                    );
+                const { docs, prevPage, nextPage, ...pagination } = await ungTuyenModel.paginate(
+                    {
+                        [whereType]: idQuery,
+                        isDeleted: type ? type : false,
+                    },
+                    options,
+                );
 
                 const data = {
                     errCode: 0,
@@ -101,15 +100,15 @@ class ungTuyenServices {
                 };
 
                 if (!docs.length) {
-                    data.meta.msgEr = "No documentation find available";
+                    data.meta.msgEr = 'No documentation find available';
                 }
 
                 if (!limit) {
-                    data.meta.limitWarning = "missing limit parameter send api";
+                    data.meta.limitWarning = 'missing limit parameter send api';
                 }
 
                 if (!page) {
-                    data.meta.pageWarning = "missing page parameter send api";
+                    data.meta.pageWarning = 'missing page parameter send api';
                 }
 
                 if (nextPage) {
@@ -131,14 +130,18 @@ class ungTuyenServices {
         });
     }
 
-    async PostCheckIsNew(id) {
+    async PostCheckIsNew(id, time_Appointment, type) {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!id) {
                     return resolve({
                         errCode: 1,
-                        msg: "Missing required parameter",
+                        msg: 'Missing required parameter',
                     });
+                }
+
+                if (!time_Appointment) {
+                    time_Appointment = '';
                 }
 
                 const checkExists = await ungTuyenModel
@@ -148,9 +151,28 @@ class ungTuyenServices {
                     .exec();
 
                 if (checkExists) {
-                    await ungTuyenModel.findByIdAndUpdate(id, {
-                        isNew: false,
-                    });
+                    if (!time_Appointment) {
+                        await ungTuyenModel.findByIdAndUpdate(id, {
+                            isNew: false,
+                            isConfirmedNTD: true,
+                        });
+                    }
+
+                    if (type === 'book') {
+                        await ungTuyenModel.findByIdAndUpdate(id, {
+                            isNew: false,
+                            time_Appointment,
+                            isConfirmedNTD: true,
+                        });
+                    }
+
+                    if (type === 'cancel') {
+                        await ungTuyenModel.findByIdAndUpdate(id, {
+                            isNew: false,
+                            time_Appointment,
+                            isConfirmedNTD: true,
+                        });
+                    }
 
                     const data = await ungTuyenModel
                         .findOne({
@@ -160,13 +182,13 @@ class ungTuyenServices {
 
                     resolve({
                         errCode: 0,
-                        msg: "Success fully",
+                        msg: 'Success fully',
                         data: data,
                     });
                 } else {
                     resolve({
                         errCode: 404,
-                        msg: "Ung Tuyen Not Found",
+                        msg: 'Ung Tuyen Not Found',
                         data: null,
                     });
                 }
@@ -182,7 +204,7 @@ class ungTuyenServices {
                 if (!data.id) {
                     return resolve({
                         errCode: 1,
-                        msg: "Missing required parameters",
+                        msg: 'Missing required parameters',
                     });
                 }
 
@@ -205,13 +227,59 @@ class ungTuyenServices {
 
                     resolve({
                         errCode: 0,
-                        msg: "Updated Successfully",
+                        msg: 'Updated Successfully',
                         data: dataAwait,
                     });
                 } else {
                     resolve({
                         errCode: 404,
-                        msg: "Ung Tuyen Not Found",
+                        msg: 'Ung Tuyen Not Found',
+                        data: null,
+                    });
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
+    }
+
+    async ChangeTimeAppointment(data) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                if (!data.time_Appointment || !data.id) {
+                    resolve({
+                        errCode: 1,
+                        msg: 'Missing required parameters',
+                    });
+                }
+
+                const checkExists = await ungTuyenModel
+                    .findOne({
+                        _id: data.id,
+                    })
+                    .exec();
+
+                if (checkExists) {
+                    await ungTuyenModel.findByIdAndUpdate(data.id, {
+                        time_Appointment: data.time_Appointment,
+                        isConfirmedNTD: false,
+                    });
+
+                    const dataAwait = await ungTuyenModel
+                        .findOne({
+                            _id: data.id,
+                        })
+                        .exec();
+
+                    resolve({
+                        errCode: 0,
+                        msg: 'Updated Successfully',
+                        data: dataAwait,
+                    });
+                } else {
+                    resolve({
+                        errCode: 404,
+                        msg: 'Ung Tuyen Not Found',
                         data: null,
                     });
                 }
