@@ -55,6 +55,10 @@ const ungTuyenSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    time_again_Appointment: {
+        type: String,
+        required: false,
+    },
     isConfirmedNTD: {
         type: Boolean,
         default: false,

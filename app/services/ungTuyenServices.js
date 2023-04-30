@@ -154,7 +154,7 @@ class ungTuyenServices {
                     if (!time_Appointment) {
                         await ungTuyenModel.findByIdAndUpdate(id, {
                             isNew: false,
-                            isConfirmedNTD: true,
+                            // isConfirmedNTD: false,
                         });
                     }
 
@@ -243,7 +243,7 @@ class ungTuyenServices {
         });
     }
 
-    async ChangeTimeAppointment(data) {
+    async ChangeTimeAppointment(data, isConfirmedNTD = false, type = 'ung-vien') {
         return new Promise(async (resolve, reject) => {
             try {
                 if (!data.time_Appointment || !data.id) {
@@ -260,10 +260,17 @@ class ungTuyenServices {
                     .exec();
 
                 if (checkExists) {
-                    await ungTuyenModel.findByIdAndUpdate(data.id, {
-                        time_Appointment: data.time_Appointment,
-                        isConfirmedNTD: false,
-                    });
+                    if (type === 'ung-vien') {
+                        await ungTuyenModel.findByIdAndUpdate(data.id, {
+                            time_again_Appointment: data.time_Appointment,
+                            isConfirmedNTD: false,
+                        });
+                    } else {
+                        await ungTuyenModel.findByIdAndUpdate(data.id, {
+                            time_Appointment: data.time_Appointment,
+                            isConfirmedNTD,
+                        });
+                    }
 
                     const dataAwait = await ungTuyenModel
                         .findOne({

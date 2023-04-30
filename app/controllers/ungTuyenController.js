@@ -69,7 +69,7 @@ class ungTuyenController {
 
     async ChangeTimeAppointment(req, res, next) {
         try {
-            const data = await ungTuyenServices.ChangeTimeAppointment(req.body);
+            const data = await ungTuyenServices.ChangeTimeAppointment(req.body, req.body.isConfirmedNTD, req.body.type);
 
             return res.status(200).json(data);
         } catch (error) {
