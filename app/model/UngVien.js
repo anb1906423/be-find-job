@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const mongoosePaginate = require("mongoose-paginate-v2");
+const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Schema = mongoose.Schema;
 
 const UngVienSchema = new Schema({
@@ -77,15 +77,20 @@ const UngVienSchema = new Schema({
         type: Boolean,
         default: false,
     },
+    tiengAnh: {
+        type: String,
+        default: 'Chua co',
+        required: false,
+    },
     refreshToken: [String],
 });
 
 UngVienSchema.plugin(mongoosePaginate);
 
-UngVienSchema.method("toJSON", function () {
+UngVienSchema.method('toJSON', function () {
     const { __v, _id, ...object } = this.toObject();
     object.id = _id;
     return object;
 });
 
-module.exports = mongoose.model("UngVien", UngVienSchema);
+module.exports = mongoose.model('UngVien', UngVienSchema);
