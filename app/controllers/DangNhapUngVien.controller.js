@@ -16,8 +16,7 @@ const DangNhapUngVien = async (req, res) => {
             return;
         } else if (foundUngVien?.isLoginFireBase === true) {
             res.status(401).send({
-                message:
-                    'Vui lòng đăng nhập với Google!',
+                message: 'Vui lòng đăng nhập với Google!',
             }); //Incorrect username or password!
             return;
         }
@@ -105,7 +104,7 @@ const DangNhapUngVien = async (req, res) => {
                     email: email,
                     soDienThoai: data.soDienThoai || 'Đang cập nhật',
                     diaChi: 'Đang cập nhật',
-                    avatar: data.logoCty || '',
+                    avatar: data.avatar || '',
                     isLoginFireBase: true,
                     matKhau: data.matKhau || '12345678',
                 });
