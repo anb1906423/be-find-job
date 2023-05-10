@@ -53,6 +53,8 @@ app.use("/nganh-nghe", require("./app/routes/options/NganhNghe"));
 app.use("/qui-mo", require("./app/routes/options/QuiMo"));
 app.use("/cap-bac", require("./app/routes/options/CapBac"));
 app.use("/trinh-do-tieng-anh", require("./app/routes/options/TiengAnh"));
+
+app.use("/dashboard", require("./app/routes/total/Total.router"));
 initAlUngTuyenRouter(app);
 
 app.get("/", (req, res) => {
