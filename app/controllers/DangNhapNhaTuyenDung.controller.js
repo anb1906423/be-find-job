@@ -82,7 +82,7 @@ const DangNhapNhaTuyenDung = async (req, res) => {
             });
 
             // Send authorization roles and access token to user
-            res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id, isLoginFireBase });
+            res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id, isLoginFireBase, state: foundNhaTuyenDung.state });
         } else {
             res.sendStatus(401);
         }
@@ -169,7 +169,7 @@ const DangNhapNhaTuyenDung = async (req, res) => {
         });
 
         // Send authorization roles and access token to user
-        res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id, isLoginFireBase });
+        res.json({ accessToken, email, roles, id: foundNhaTuyenDung._id, isLoginFireBase, state: foundNhaTuyenDung.state });
     }
 };
 

@@ -81,7 +81,7 @@ const DangNhapUngVien = async (req, res) => {
             });
 
             // Send authorization roles and access token to user
-            res.json({ accessToken, email, roles, id: foundUngVien._id, isLoginFireBase });
+            res.json({ accessToken, email, roles, id: foundUngVien._id, isLoginFireBase, state: foundUngVien.state });
         } else {
             res.sendStatus(401);
         }
@@ -166,7 +166,7 @@ const DangNhapUngVien = async (req, res) => {
         });
 
         // Send authorization roles and access token to user
-        res.json({ accessToken, email, roles, id: foundUngVien._id, isLoginFireBase });
+        res.json({ accessToken, email, roles, id: foundUngVien._id, isLoginFireBase, state: foundUngVien.state });
     }
 };
 
